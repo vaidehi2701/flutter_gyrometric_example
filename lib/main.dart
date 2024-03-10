@@ -1,17 +1,20 @@
 import 'package:flutter/material.dart';
 import 'package:sensors_plus/sensors_plus.dart';
 
-class HomeSreen extends StatefulWidget {
-  const HomeSreen({super.key});
-
-  @override
-  State<HomeSreen> createState() => _HomeSreenState();
+void main() {
+  runApp(const MaterialApp(debugShowCheckedModeBanner: false, home: Home()));
 }
 
-class _HomeSreenState extends State<HomeSreen> {
+class Home extends StatefulWidget {
+  const Home({Key? key}) : super(key: key);
+
+  @override
+  _HomeState createState() => _HomeState();
+}
+
+class _HomeState extends State<Home> {
   double x = 0, y = 0, z = 0;
-  double ballPositionX = 140;
-  double ballPositionY = 140;
+  double ballPositionX = 120;
 
   @override
   void initState() {
@@ -21,16 +24,15 @@ class _HomeSreenState extends State<HomeSreen> {
       z = event.z;
 
       // Adjust sensitivity as needed
-      double sensitivity = 0.8;
+      double sensitivity = 8.0; // Increased sensitivity for y-axis movement
 
       setState(() {
-        // Adjust the ball position based on x-axis rotation
-        ballPositionX += x * sensitivity;
-        ballPositionY += y * sensitivity;
+        // Adjust the ball position based on y-axis movement
+        ballPositionX += y * sensitivity;
 
         // Limit the ball position to the screen boundaries
         ballPositionX =
-            ballPositionX.clamp(0.0, MediaQuery.of(context).size.width - 0.0);
+            ballPositionX.clamp(0.0, MediaQuery.of(context).size.width);
       });
     });
     super.initState();
@@ -40,26 +42,22 @@ class _HomeSreenState extends State<HomeSreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       backgroundColor: Colors.black45,
-      body: Padding(
-        padding: const EdgeInsets.only(top: 40),
-        child: Stack(
-          children: [
-            Container(
-              decoration: const BoxDecoration(
-                image:
-                    DecorationImage(image: AssetImage("assets/table.png")),
-              ),
+      body: Stack(
+        children: [
+          Container(
+            decoration: const BoxDecoration(
+              image: DecorationImage(image: AssetImage("assets/table.png")),
             ),
-            Positioned(
-              left: ballPositionX,
-              // top: ballPositionY,
-              child: Image.asset(
-                'assets/ball.png',
-                height: 80,
-              ),
+          ),
+          Positioned(
+            top: 350,
+            left: ballPositionX,
+            child: Image.asset(
+              'assets/ball.png',
+              height: 80,
             ),
-          ],
-        ),
+          ),
+        ],
       ),
     );
   }
