@@ -4,6 +4,9 @@ import 'package:sensors_plus/sensors_plus.dart';
 void main() {
   runApp(const MaterialApp(debugShowCheckedModeBanner: false, home: Home()));
 }
+  //devDiariesWithVee on Instagram
+ //devDiariesWithVee on Youtube
+ //vaidehi2701 on Github/Linkedin
 
 class Home extends StatefulWidget {
   const Home({Key? key}) : super(key: key);
